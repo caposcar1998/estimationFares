@@ -20,14 +20,15 @@ function App() {
   }
 
   function calculateRide(){
-    console.log(pickUp)
-    console.log(dropOff)
     axios.post("/api/locations/distance", {
       locationOne: pickUp,
       locationTwo: dropOff
     }).then(function (response){
-      console.log(response)
-      alert(response.data)
+      if (response.data.status === 400){
+        alert("You selected de same location")
+      }else{
+        alert("Your total fare would be: "+ response.data.cost)
+      }
     }).catch(function (error){
       console.log(error)
     })

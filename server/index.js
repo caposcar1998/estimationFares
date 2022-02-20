@@ -29,19 +29,16 @@ app.listen('3001', () => { })
   app.post('/locations/distance', (req,res) => {
     const locationOneId = req.body.locationOne
     const locationTwoId = req.body.locationTwo
-    let locationOneData = ''
-    let locationTwoData = ''
     if (locationOneId === locationTwoId){
       res.send({"status":400, "message":"Same location"})
     }else{
-      db.query(`SELECT * FROM locations WHERE id = ${Number(locationOneId)}`, (err, result) => {
-        locationOneData = result
+      db.query(`SELECT * FROM locations WHERE id = ${Number(locationOneId)}`, (err, result1) => {
+        
+        db.query(`SELECT * FROM locations WHERE id = ${Number(locationTwoId)}`, (err, result2) => {
+          const finalCost =  costTravel(result1[0], result2[0])
+          res.send({"status":200,"cost":Number(finalCost.toFixed(2))})
+        })
       })
-      db.query(`SELECT * FROM locations WHERE id = ${Number(locationTwoId)}`, (err, result) => {
-        locationTwoData = result
-      })
-      const finalCost =  costTravel(locationOneData, locationTwoData)
-      res.send({"status":200,"cost":Number(finalCost.toFixed(2))})
     }
 
   })
