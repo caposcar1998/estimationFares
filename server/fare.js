@@ -1,4 +1,4 @@
-import moment from "moment";
+const moment = require("moment-timezone")
 
 const timeZone = "America/Mexico_City"
 
@@ -21,12 +21,15 @@ let r = 6371;
 return(c * r)
 }
 
-export default function costTravel(){
-    const locationOneLatitude = req.body.locationOne.latitude
-    const locationOneLongitude = req.body.locationOne.longitude
-    const locationTwoLatitude = req.body.locationTwo.latitude
-    const locationTwoLongitude = req.body.locationTwo.longitude
+function costTravel(locationOne, locationTwo){
+    const locationOneLatitude = locationOne.latitude
+    const locationOneLongitude = locationOne.longitude
+    const locationTwoLatitude = locationTwo.latitude
+    const locationTwoLongitude = locationTwo.longitude
     const distance = distanceBetweenTwoLocations(locationOneLatitude,locationTwoLatitude,locationOneLongitude, locationTwoLongitude)
     const todayDate = moment().tz(timeZone).format('dddd');
     const hour = moment().tz(timeZone).format('h:mm:ss a');
+    return distance
 }
+
+module.exports = costTravel;

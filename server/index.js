@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
-import costTravel  from './fare.js';
+const costTravel = require('./fare')
 
 const db = mysql.createPool({
     host: 'mysql_db', 
@@ -30,8 +30,9 @@ app.get('/get', (req, res) => {
     })
   })
 
-  app.post('locations/distance', (req,res) => {
+  app.post('/locations/distance', (req,res) => {
     const locationOne = req.body.locationOne
     const locationTwo = req.body.locationTwo
-    return costTravel(locationOne, locationTwo)
+    const finalCost =  costTravel(locationOne, locationTwo)
+    res.send({"status":200,"cost":Number(finalCost.toFixed(2))})
   })
