@@ -19,10 +19,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.listen('3001', () => { })
 
-app.get('/get', (req, res) => {
-    res.send('Hola mundo')
-  });
-
   app.get('/locations', (req, res) => {
     const SelectQuery = " SELECT * FROM locations";
     db.query(SelectQuery, (err, result) => {
