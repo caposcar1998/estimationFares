@@ -33,6 +33,12 @@ app.get('/get', (req, res) => {
   app.post('/locations/distance', (req,res) => {
     const locationOne = req.body.locationOne
     const locationTwo = req.body.locationTwo
-    const finalCost =  costTravel(locationOne, locationTwo)
-    res.send({"status":200,"cost":Number(finalCost.toFixed(2))})
+
+    if (locationOne.latitude === locationTwo.latitude && locationOne.longitude === locationTwo.longitude){
+      res.send({"status":400, "message":"Same location"})
+    }else{
+      const finalCost =  costTravel(locationOne, locationTwo)
+      res.send({"status":200,"cost":Number(finalCost.toFixed(2))})
+    }
+
   })
