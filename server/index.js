@@ -27,13 +27,20 @@ app.listen('3001', () => { })
   })
 
   app.post('/locations/distance', (req,res) => {
-    const locationOne = req.body.locationOne
-    const locationTwo = req.body.locationTwo
-
-    if (locationOne.latitude === locationTwo.latitude && locationOne.longitude === locationTwo.longitude){
+    const locationOneId = req.body.locationOne
+    const locationTwoId = req.body.locationTwo
+    let locationOneData = ''
+    let locationTwoData = ''
+    if (locationOneId === locationTwoId){
       res.send({"status":400, "message":"Same location"})
     }else{
-      const finalCost =  costTravel(locationOne, locationTwo)
+      db.query(`SELECT * FROM locations WHERE id = ${Number(locationOneId)}`, (err, result) => {
+        locationOneData = result
+      })
+      db.query(`SELECT * FROM locations WHERE id = ${Number(locationTwoId)}`, (err, result) => {
+        locationTwoData = result
+      })
+      const finalCost =  costTravel(locationOneData, locationTwoData)
       res.send({"status":200,"cost":Number(finalCost.toFixed(2))})
     }
 
