@@ -6,7 +6,7 @@ const db = mysql.createPool({
     host: 'mysql_db', // the host name MYSQL_DATABASE: node_mysql
     user: 'MYSQL_USER', // database user MYSQL_USER: MYSQL_USER
     password: 'MYSQL_PASSWORD', // database user password MYSQL_PASSWORD: MYSQL_PASSWORD
-    database: 'books' // database name MYSQL_HOST_IP: mysql_db
+    database: 'beat' // database name MYSQL_HOST_IP: mysql_db
   })
 
 
@@ -21,3 +21,10 @@ app.listen('3001', () => { })
 app.get('/get', (req, res) => {
     res.send('Hola mundo')
   });
+
+  app.get('/locations', (req, res) => {
+    const SelectQuery = " SELECT * FROM locations";
+    db.query(SelectQuery, (err, result) => {
+      res.send(result)
+    })
+  })
