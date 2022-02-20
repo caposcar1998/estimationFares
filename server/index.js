@@ -1,12 +1,13 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+import costTravel  from './fare.js';
 
 const db = mysql.createPool({
-    host: 'mysql_db', // the host name MYSQL_DATABASE: node_mysql
-    user: 'MYSQL_USER', // database user MYSQL_USER: MYSQL_USER
-    password: 'MYSQL_PASSWORD', // database user password MYSQL_PASSWORD: MYSQL_PASSWORD
-    database: 'beat' // database name MYSQL_HOST_IP: mysql_db
+    host: 'mysql_db', 
+    user: 'MYSQL_USER', 
+    password: 'MYSQL_PASSWORD', 
+    database: 'beat' 
   })
 
 
@@ -27,4 +28,10 @@ app.get('/get', (req, res) => {
     db.query(SelectQuery, (err, result) => {
       res.send(result)
     })
+  })
+
+  app.post('locations/distance', (req,res) => {
+    const locationOne = req.body.locationOne
+    const locationTwo = req.body.locationTwo
+    return costTravel(locationOne, locationTwo)
   })
