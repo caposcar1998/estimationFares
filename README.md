@@ -16,6 +16,7 @@ Depending on the day, hour and distance, the user will recieve a diferent price.
 # What you need to run this project
 
 - [Docker](https://docs.docker.com/get-docker/)
+- [Node](https://nodejs.org/es/download/)
 
 # Infrastructure
 
@@ -57,6 +58,46 @@ Depending on the day, hour and distance, the user will recieve a diferent price.
    ```
 
 3. Open port [3050](http://localhost:3050)
+
+# Access the database
+
+1. Run the previous steps
+
+2. To access the dashboard open [8000](http://localhost:8000/)
+
+3. User the credentials:
+
+   - Username: root
+   - Password: MYSQL_ROOT_PASSWORD
+
+4. Access beat database
+
+5. Create table : locations with the following attributes:
+
+   - name: text
+   - latitude: float
+   - longitude: float
+   - id: int (autoincrement)
+
+6. Add the values that you want
+
+### Note: The project needs data in the database so it can work, please add the values given in the CSV manually
+
+# Testing
+
+1. Access server directory
+
+2. Run:
+
+   ```
+   npm i
+   ```
+
+3. Run:
+
+   ```
+   npm test
+   ```
 
 # Endpoints
 
