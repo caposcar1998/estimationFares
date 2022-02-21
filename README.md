@@ -126,3 +126,7 @@ Get the price of the ride
       }
   }
   ```
+
+# Get the distance between two points on earth
+
+It was used the harvesine formula, for more info please refeer to [harvesine formula](https://www.geeksforgeeks.org/program-distance-two-points-earth/)
